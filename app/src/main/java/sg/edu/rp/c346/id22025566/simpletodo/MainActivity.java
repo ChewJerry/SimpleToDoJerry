@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -92,9 +93,26 @@ public class MainActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos = Integer.parseInt(etToDo.getText().toString());
-                toDoArray.remove(pos);
-                adapter.notifyDataSetChanged();
+
+                //retrieve input from etToDo
+                String toDo = etToDo.getText().toString();
+                if (toDo.isEmpty()) {  // if it is empty
+                    Toast.makeText(MainActivity.this, "You don't have any task to remove", Toast.LENGTH_SHORT).show();
+                }
+
+
+               else { //if there is input
+                   if (pos>=0 || pos<toDoArray.size()) { // if index exists in toDoArray
+                       int pos = Integer.parseInt(etToDo.getText().toString());
+
+                       toDoArray.remove(pos); //then remove
+                       adapter.notifyDataSetChanged();
+                   }
+                   else { //if index is not in range
+                       Toast.makeText(MainActivity.this, "Wrong index number", Toast.LENGTH_SHORT).show();
+                   }
+                }
+
 
 
 
